@@ -7,7 +7,7 @@ return {
     require('bufferline').setup {
       options = {
         mode = 'tabs',
-        separator_style = 'slope',
+        -- separator_style = 'slope',
         diagnostics = "nvim_lsp",
       }
     }

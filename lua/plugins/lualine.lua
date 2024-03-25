@@ -16,7 +16,7 @@ return {
     config = function() 
       require('lualine').setup({
         options = {
-          theme = 'auto',
+          theme = 'onenord',
           extensions = { 'neo-tree' },
         },
         sections = {

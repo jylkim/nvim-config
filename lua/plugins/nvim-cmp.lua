@@ -6,6 +6,8 @@ return {
     "hrsh7th/cmp-buffer",
     "hrsh7th/cmp-path",
     "hrsh7th/cmp-cmdline",
+    'L3MON4D3/LuaSnip',
+    'saadparwaiz1/cmp_luasnip'
   },
   -- https://github.com/noornee/nvim/blob/main/lua/plugins/nvim-cmp.lua
   config = function()
@@ -36,6 +38,13 @@ return {
     }
 
     cmp.setup({
+      snippet = {
+        -- REQUIRED - you must specify a snippet engine
+        expand = function(args)
+          require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+          require('snippy').expand_snippet(args.body) -- For `snippy` users.
+        end,
+      },
       mapping = cmp.mapping.preset.insert({
         ['<C-b>'] = cmp.mapping.scroll_docs(-4),
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
@@ -59,6 +68,7 @@ return {
       }),
       sources = cmp.config.sources({
         { name = 'nvim_lsp' },
+        { name = 'luasnip' }, -- For luasnip users.
       }, {
         { name = 'buffer' },
       }),
@@ -70,6 +80,7 @@ return {
           vim_item.menu = ({
             buffer = "[Buffer]",
             nvim_lsp = "[LSP]",
+            luasnip = "[LuaSnip]",
           })[entry.source.name]
           return vim_item
         end,
