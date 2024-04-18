@@ -13,7 +13,7 @@ return {
     config = function()
       -- mason-lspconfig setup
       require("mason-lspconfig").setup {
-        ensure_installed = { "lua_ls", "rust_analyzer" },
+        ensure_installed = { "lua_ls", "rust_analyzer", "pylsp" },
       }
     end
   },
@@ -29,6 +29,7 @@ return {
 
       lspconfig.lua_ls.setup {}
       lspconfig.rust_analyzer.setup {}
+      lspconfig.pylsp.setup {}
 
       -- user_keymap('<leader>e', vim.diagnostic.open_float)
       user_keymap('[d', vim.diagnostic.goto_prev)
