@@ -7,7 +7,7 @@ return {
     "hrsh7th/cmp-path",
     "hrsh7th/cmp-cmdline",
     'L3MON4D3/LuaSnip',
-    'saadparwaiz1/cmp_luasnip'
+    'saadparwaiz1/cmp_luasnip',
   },
   -- https://github.com/noornee/nvim/blob/main/lua/plugins/nvim-cmp.lua
   config = function()
@@ -35,6 +35,7 @@ return {
       File = " ",
       Folder = " ",
       Color = " ",
+      Supermaven = ""
     }
 
     cmp.setup({
@@ -42,7 +43,6 @@ return {
         -- REQUIRED - you must specify a snippet engine
         expand = function(args)
           require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-          require('snippy').expand_snippet(args.body) -- For `snippy` users.
         end,
       },
       mapping = cmp.mapping.preset.insert({
@@ -68,6 +68,7 @@ return {
       }),
       sources = cmp.config.sources({
         { name = 'nvim_lsp' },
+        { name = 'supermaven'},
         { name = 'luasnip' }, -- For luasnip users.
       }, {
         { name = 'buffer' },
@@ -78,8 +79,9 @@ return {
           vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
           -- Source
           vim_item.menu = ({
-            buffer = "[Buffer]",
+            supermaven = "[Supermaven]",
             nvim_lsp = "[LSP]",
+            buffer = "[Buffer]",
             luasnip = "[LuaSnip]",
           })[entry.source.name]
           return vim_item

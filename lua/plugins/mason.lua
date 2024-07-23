@@ -13,7 +13,7 @@ return {
     config = function()
       -- mason-lspconfig setup
       require("mason-lspconfig").setup {
-        ensure_installed = { "lua_ls", "rust_analyzer", "pylsp" },
+        ensure_installed = { "lua_ls", "rust_analyzer", "pylsp", "jdtls" },
       }
     end
   },
@@ -28,10 +28,15 @@ return {
       local lspconfig = require('lspconfig')
 
       lspconfig.lua_ls.setup {}
-      lspconfig.rust_analyzer.setup {}
+      lspconfig.rust_analyzer.setup({
+        on_attach = function(client, bufnr)
+          vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+        end
+      })
       lspconfig.pylsp.setup {}
+      lspconfig.jdtls.setup {}
 
-      -- user_keymap('<leader>e', vim.diagnostic.open_float)
+      user_keymap('<leader>r', vim.diagnostic.open_float)
       user_keymap('[d', vim.diagnostic.goto_prev)
       user_keymap(']d', vim.diagnostic.goto_next)
       user_keymap('<leader>q', vim.diagnostic.setloclist)
