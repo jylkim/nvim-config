@@ -17,10 +17,13 @@ return {
         openai = require("codecompanion.adapters").use("openai", {
           url = "https://api.groq.com/openai/v1/chat/completions",
           schema = {
+            max_tokens = {
+              default = 8192,
+            },
             model = {
-              default = "llama3-70b-8192",
+              default = "llama-3.1-70b-versatile",
               choices = {
-                "llama3-70b-8192",
+                "llama-3.1-70b-versatile",
                 "mixtral-8x7b-32768",
               },
             },
