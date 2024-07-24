@@ -18,7 +18,7 @@ return {
           url = "https://api.groq.com/openai/v1/chat/completions",
           schema = {
             max_tokens = {
-              default = 8192,
+              default = 8000,
             },
             model = {
               default = "llama-3.1-70b-versatile",
