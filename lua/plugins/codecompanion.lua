@@ -14,7 +14,7 @@ return {
   config = function()
     require("codecompanion").setup({
       adapters = {
-        openai = require("codecompanion.adapters").use("openai", {
+        openai = require("codecompanion.adapters").extend("openai", {
           url = "https://api.groq.com/openai/v1/chat/completions",
           schema = {
             max_tokens = {
