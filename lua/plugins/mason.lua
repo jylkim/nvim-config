@@ -13,7 +13,7 @@ return {
     config = function()
       -- mason-lspconfig setup
       require("mason-lspconfig").setup {
-        ensure_installed = { "lua_ls", "rust_analyzer", "pylsp", "jdtls", "clangd" },
+        ensure_installed = { "lua_ls", "pylsp", "ts_ls", "tailwindcss" },
       }
     end
   },
@@ -22,20 +22,46 @@ return {
     dependencies = {
       'nvim-telescope/telescope.nvim'
     },
+    opts = {
+      inlay_hints = { enabled = true },
+    },
     config = function()
       -- nvim-lspconfig setup
       -- https://github.com/neovim/nvim-lspconfig?tab=readme-ov-file#suggested-configuration
       local lspconfig = require('lspconfig')
 
       lspconfig.lua_ls.setup {}
-      lspconfig.rust_analyzer.setup({
-        on_attach = function(client, bufnr)
-          vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
-        end
-      })
       lspconfig.pylsp.setup {}
-      lspconfig.jdtls.setup {}
-      lspconfig.clangd.setup {}
+      lspconfig.ts_ls.setup({
+                capabilities = require('cmp_nvim_lsp').default_capabilities(),
+                settings = {
+
+                    javascript = {
+                        inlayHints = {
+                            includeInlayEnumMemberValueHints = true,
+                            includeInlayFunctionLikeReturnTypeHints = true,
+                            includeInlayFunctionParameterTypeHints = true,
+                            includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all';
+                            includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+                            includeInlayPropertyDeclarationTypeHints = true,
+                            includeInlayVariableTypeHints = false,
+                        },
+                    },
+
+                    typescript = {
+                        inlayHints = {
+                            includeInlayEnumMemberValueHints = true,
+                            includeInlayFunctionLikeReturnTypeHints = true,
+                            includeInlayFunctionParameterTypeHints = true,
+                            includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all';
+                            includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+                            includeInlayPropertyDeclarationTypeHints = true,
+                            includeInlayVariableTypeHints = false,
+                        },
+                    },
+                }
+            })
+      lspconfig.tailwindcss.setup {}
 
       user_keymap('<leader>r', vim.diagnostic.open_float)
       user_keymap('[d', vim.diagnostic.goto_prev)
@@ -56,6 +82,9 @@ return {
       user_keymap('gr', builtin.lsp_references)
       user_keymap('gi', builtin.lsp_implementations)
       user_keymap('<leader>D', builtin.lsp_type_definitions)
+      user_keymap('<leader>i', function()
+        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ 0 }), { 0 })
+      end)
     end
   }
 }
