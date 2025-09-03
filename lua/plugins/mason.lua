@@ -13,7 +13,7 @@ return {
     config = function()
       -- mason-lspconfig setup
       require("mason-lspconfig").setup {
-        ensure_installed = { "lua_ls", "pylsp", "ts_ls", "tailwindcss" },
+        ensure_installed = { "lua_ls", "ty", "ruff" },
       }
     end
   },
@@ -31,37 +31,53 @@ return {
       local lspconfig = require('lspconfig')
 
       lspconfig.lua_ls.setup {}
-      lspconfig.pylsp.setup {}
-      lspconfig.ts_ls.setup({
-                capabilities = require('cmp_nvim_lsp').default_capabilities(),
-                settings = {
+      -- lspconfig.ty.setup {}
+      lspconfig.basedpyright.setup {}
+      lspconfig.ruff.setup {
+        init_options = {
+          settings = {
+            lineLength = 100,
+            organizeImports = true,
+            fixAll = true,
+            codeAction = {
+              fixViolation = {
+                enable = true,
+              }
+            },
+            lint = {
+              enable = true,
+            }
+          }
+        }
+      }
+      lspconfig.ts_ls.setup {
+        capabilities = require('cmp_nvim_lsp').default_capabilities(),
+        settings = {
+          javascript = {
+            inlayHints = {
+              includeInlayEnumMemberValueHints = true,
+              includeInlayFunctionLikeReturnTypeHints = true,
+              includeInlayFunctionParameterTypeHints = true,
+              includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all';
+              includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+              includeInlayPropertyDeclarationTypeHints = true,
+              includeInlayVariableTypeHints = false,
+            },
+          },
 
-                    javascript = {
-                        inlayHints = {
-                            includeInlayEnumMemberValueHints = true,
-                            includeInlayFunctionLikeReturnTypeHints = true,
-                            includeInlayFunctionParameterTypeHints = true,
-                            includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all';
-                            includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-                            includeInlayPropertyDeclarationTypeHints = true,
-                            includeInlayVariableTypeHints = false,
-                        },
-                    },
-
-                    typescript = {
-                        inlayHints = {
-                            includeInlayEnumMemberValueHints = true,
-                            includeInlayFunctionLikeReturnTypeHints = true,
-                            includeInlayFunctionParameterTypeHints = true,
-                            includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all';
-                            includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-                            includeInlayPropertyDeclarationTypeHints = true,
-                            includeInlayVariableTypeHints = false,
-                        },
-                    },
-                }
-            })
-      lspconfig.tailwindcss.setup {}
+          typescript = {
+            inlayHints = {
+              includeInlayEnumMemberValueHints = true,
+              includeInlayFunctionLikeReturnTypeHints = true,
+              includeInlayFunctionParameterTypeHints = true,
+              includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all';
+              includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+              includeInlayPropertyDeclarationTypeHints = true,
+              includeInlayVariableTypeHints = false,
+            },
+          },
+        }
+      }
 
       user_keymap('<leader>r', vim.diagnostic.open_float)
       user_keymap('[d', vim.diagnostic.goto_prev)
