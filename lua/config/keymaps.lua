@@ -3,13 +3,13 @@ local user_keymap = require('utils.key_mapper').user_keymap
 -- Neotree toggle
 user_keymap('<leader>e', ':Neotree toggle<CR>')
 
--- Pane navigation 
+-- Pane navigation
 user_keymap('<C-h>', '<C-w>h') -- Left
 user_keymap('<C-j>', '<C-w>j') -- Down
 user_keymap('<C-k>', '<C-w>k') -- Up
 user_keymap('<C-l>', '<C-w>l') -- Right
 
--- Clear search highlights 
+-- Clear search highlights
 user_keymap('<leader>h', ':nohlsearch<CR>')
 
 -- Tab navigation

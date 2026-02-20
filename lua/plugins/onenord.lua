@@ -3,6 +3,10 @@ return {
   priority = 1000,
   lazy = false,
   config = function()
-    require('onenord').setup()
+    require('onenord').setup({
+      disable = {
+        background = true
+      }
+    })
   end,
 }
