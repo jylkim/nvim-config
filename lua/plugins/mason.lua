@@ -115,28 +115,28 @@ return {
         virtual_text = true,
       })
 
-      user_keymap('<leader>r', vim.diagnostic.open_float)
-      user_keymap('[d', vim.diagnostic.goto_prev)
-      user_keymap(']d', vim.diagnostic.goto_next)
-      user_keymap('<leader>q', vim.diagnostic.setloclist)
+      user_keymap('<leader>r', vim.diagnostic.open_float, 'n', { desc = 'Diagnostic float' })
+      user_keymap('[d', vim.diagnostic.goto_prev, 'n', { desc = 'Previous diagnostic' })
+      user_keymap(']d', vim.diagnostic.goto_next, 'n', { desc = 'Next diagnostic' })
+      user_keymap('<leader>q', vim.diagnostic.setloclist, 'n', { desc = 'Diagnostic loclist' })
 
-      user_keymap('gD', vim.lsp.buf.declaration)
-      user_keymap('K', vim.lsp.buf.hover)
-      user_keymap('<leader>k', vim.lsp.buf.signature_help)
-      user_keymap('<leader>rn', vim.lsp.buf.rename)
-      user_keymap('<leader>ca', vim.lsp.buf.code_action, { 'n', 'v' })
+      user_keymap('gD', vim.lsp.buf.declaration, 'n', { desc = 'Go to declaration' })
+      user_keymap('K', vim.lsp.buf.hover, 'n', { desc = 'Hover info' })
+      user_keymap('<leader>k', vim.lsp.buf.signature_help, 'n', { desc = 'Signature help' })
+      user_keymap('<leader>rn', vim.lsp.buf.rename, 'n', { desc = 'Rename symbol' })
+      user_keymap('<leader>ca', vim.lsp.buf.code_action, { 'n', 'v' }, { desc = 'Code action' })
       user_keymap('<leader>f', function()
         vim.lsp.buf.format { async = true }
-      end)
+      end, 'n', { desc = 'Format buffer' })
 
       local builtin = require('telescope.builtin')
-      user_keymap('gd', builtin.lsp_definitions)
-      user_keymap('gr', builtin.lsp_references)
-      user_keymap('gi', builtin.lsp_implementations)
-      user_keymap('<leader>D', builtin.lsp_type_definitions)
+      user_keymap('gd', builtin.lsp_definitions, 'n', { desc = 'Go to definition' })
+      user_keymap('gr', builtin.lsp_references, 'n', { desc = 'Find references' })
+      user_keymap('gi', builtin.lsp_implementations, 'n', { desc = 'Go to implementation' })
+      user_keymap('<leader>D', builtin.lsp_type_definitions, 'n', { desc = 'Type definition' })
       user_keymap('<leader>i', function()
         vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ 0 }), { 0 })
-      end)
+      end, 'n', { desc = 'Toggle inlay hints' })
     end
   }
 }

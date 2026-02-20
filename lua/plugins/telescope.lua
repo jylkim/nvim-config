@@ -7,10 +7,10 @@ return {
     dependencies = { 'nvim-lua/plenary.nvim' },
     config = function()
       local builtin = require("telescope.builtin")
-      user_keymap('<leader>ff', builtin.find_files)
-      user_keymap('<leader>fg', builtin.live_grep)
-      user_keymap('<leader>fb', builtin.buffers)
-      user_keymap('<leader>fh', builtin.help_tags) 
+      user_keymap('<leader>ff', builtin.find_files, 'n', { desc = 'Find files' })
+      user_keymap('<leader>fg', builtin.live_grep, 'n', { desc = 'Live grep' })
+      user_keymap('<leader>fb', builtin.buffers, 'n', { desc = 'Buffers' })
+      user_keymap('<leader>fh', builtin.help_tags, 'n', { desc = 'Help tags' })
     end,
   },
   {
